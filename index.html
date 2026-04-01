@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MACNGADIA — Informaticien & Développeur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ───────────────────────────────────── */
+:root {
+  --c-bg:       #F4F1EC;   /* warm parchment */
+  --c-surface:  #FAFAF8;
+  --c-dark:     #1A1915;   /* near-black warm */
+  --c-mid:      #5C5850;
+  --c-faint:    #C8C4BC;
+  --c-rule:     #E0DDD7;
+  --c-accent:   #2B5CE6;   /* strong cobalt */
+  --c-accent2:  #E63B2B;   /* deliberate red */
+  --ff-display: 'Cormorant Garamond', Georgia, serif;
+  --ff-body:    'Instrument Sans', sans-serif;
+  --ease:       cubic-bezier(.22,1,.36,1);
+}
+
+/* ── RESET ────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--c-bg);
+  color: var(--c-dark);
+  font-family: var(--ff-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ── CURSOR ───────────────────────────────────── */
+* { cursor: none !important; }
+.cur {
+  position: fixed; z-index: 9999;
+  width: 8px; height: 8px;
+  background: var(--c-accent);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+  transition: width .25s var(--ease), height .25s var(--ease), background .2s, border-radius .25s;
+}
+.cur.big {
+  width: 48px; height: 48px;
+  background: transparent;
+  border: 1.5px solid var(--c-accent);
+  border-radius: 50%;
+}
+
+/* ── NAV ──────────────────────────────────────── */
+nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw;
+  height: 64px;
+  background: rgba(244,241,236,.88);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid var(--c-rule);
+}
+.n-brand {
+  font-family: var(--ff-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: .02em;
+  color: var(--c-dark);
+}
+.n-brand b { color: var(--c-accent); font-weight: 600; }
+.n-links { display: flex; gap: 2.8rem; list-style: none; }
+.n-links a {
+  font-size: .72rem; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--c-mid);
+  position: relative;
+  transition: color .2s;
+}
+.n-links a::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; right: 100%;
+  height: 1px; background: var(--c-accent);
+  transition: right .3s var(--ease);
+}
+.n-links a:hover { color: var(--c-dark); }
+.n-links a:hover::after { right: 0; }
+.n-cta {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--c-surface);
+  background: var(--c-dark);
+  padding: .55rem 1.4rem;
+  border-radius: 2px;
+  transition: background .2s;
+}
+.n-cta:hover { background: var(--c-accent); }
+
+/* ── HERO ─────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  padding-top: 64px;
+  display: grid;
+  grid-template-columns: 1fr 480px;
+}
+
+/* left panel */
+.hero-l {
+  padding: 7vw 5vw 5vw 7vw;
+  display: flex; flex-direction: column; justify-content: center;
+  border-right: 1px solid var(--c-rule);
+  position: relative;
+}
+.hero-l::before {
+  content: 'DEV';
+  position: absolute; top: 5vw; right: -2.5rem;
+  font-family: var(--ff-display);
+  font-size: 10rem; font-weight: 300;
+  color: var(--c-rule);
+  writing-mode: vertical-rl;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.h-tag {
+  display: inline-flex; align-items: center; gap: .6rem;
+  margin-bottom: 2.5rem;
+  font-size: .7rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--c-accent);
+}
+.h-tag-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--c-accent);
+  animation: blink 2s ease infinite;
+}
+@keyframes blink {
+  0%,100%{opacity:1} 50%{opacity:.3}
+}
+
+.hero-name {
+  font-family: var(--ff-display);
+  font-size: clamp(3.5rem,6.5vw,6rem);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -.01em;
+  margin-bottom: .5rem;
+}
+.hero-name em {
+  font-style: italic;
+  color: var(--c-accent);
+}
+
+.hero-role {
+  font-family: var(--ff-display);
+  font-size: clamp(1rem,1.8vw,1.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--c-mid);
+  margin-bottom: 2.5rem;
+  letter-spacing: .02em;
+}
+
+.hero-intro {
+  font-size: .97rem;
+  line-height: 1.85;
+  color: var(--c-mid);
+  max-width: 440px;
+  margin-bottom: 3rem;
+  font-weight: 400;
+}
+.hero-intro strong { color: var(--c-dark); font-weight: 600; }
+
+.hero-actions { display: flex; gap: 1rem; align-items: center; margin-bottom: 4rem; }
+
+.btn-primary {
+  font-size: .78rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--c-surface);
+  background: var(--c-dark);
+  padding: .85rem 2rem;
+  border-radius: 2px;
+  transition: background .2s, transform .2s;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.btn-primary:hover { background: var(--c-accent); transform: translateY(-2px); }
+
+.btn-line {
+  font-size: .78rem; font-weight: 500;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--c-mid);
+  display: inline-flex; align-items: center; gap: .4rem;
+  border-bottom: 1px solid var(--c-faint);
+  padding-bottom: 2px;
+  transition: color .2s, border-color .2s;
+}
+.btn-line:hover { color: var(--c-dark); border-color: var(--c-dark); }
+
+.hero-kpis {
+  display: flex; gap: 0;
+  border-top: 1px solid var(--c-rule);
+  padding-top: 2rem;
+}
+.kpi {
+  flex: 1;
+  padding-right: 2rem;
+  border-right: 1px solid var(--c-rule);
+  margin-right: 2rem;
+}
+.kpi:last-child { border-right: none; margin-right: 0; }
+.kpi-n {
+  font-family: var(--ff-display);
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: var(--c-dark);
+  line-height: 1;
+}
+.kpi-n span { color: var(--c-accent); }
+.kpi-l {
+  font-size: .68rem; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--c-faint);
+  margin-top: .3rem;
+}
+
+/* right panel — PHOTO */
+.hero-r {
+  background: var(--c-surface);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 4rem 3rem;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+/* subtle dot pattern */
+.hero-r::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(var(--c-rule) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: .6;
+  pointer-events: none;
+}
+
+.photo-wrap {
+  position: relative;
+  z-index: 1;
+}
+.photo-border {
+  position: absolute;
+  inset: -10px;
+  border: 1px solid var(--c-accent);
+  border-radius: 3px;
+  opacity: .35;
+  pointer-events: none;
+}
+.photo-border2 {
+  position: absolute;
+  inset: -20px;
+  border: 1px solid var(--c-accent);
+  border-radius: 3px;
+  opacity: .12;
+  pointer-events: none;
+}
+.photo-box {
+  width: 260px; height: 330px;
+  background: var(--c-bg);
+  border-radius: 3px;
+  border: 1px solid var(--c-rule);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: .75rem;
+  transition: opacity .2s;
+  position: relative;
+}
+.photo-box:hover { opacity: .88; }
+.photo-box-icon { font-size: 3.5rem; opacity: .25; }
+.photo-box-hint {
+  font-size: .7rem; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--c-mid); opacity: .6;
+}
+.photo-corner {
+  position: absolute;
+  width: 16px; height: 16px;
+  border-color: var(--c-accent);
+  border-style: solid;
+  opacity: .5;
+}
+.photo-corner.tl { top: 8px; left: 8px; border-width: 1.5px 0 0 1.5px; }
+.photo-corner.tr { top: 8px; right: 8px; border-width: 1.5px 1.5px 0 0; }
+.photo-corner.bl { bottom: 8px; left: 8px; border-width: 0 0 1.5px 1.5px; }
+.photo-corner.br { bottom: 8px; right: 8px; border-width: 0 1.5px 1.5px 0; }
+
+.photo-input { display: none; }
+
+.photo-actions { display: flex; flex-direction: column; align-items: center; gap: .75rem; z-index: 1; width: 100%; max-width: 280px; }
+.photo-upload-btn {
+  width: 100%;
+  font-family: var(--ff-body);
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--c-dark);
+  background: none;
+  border: 1px solid var(--c-rule);
+  padding: .7rem 1.5rem;
+  border-radius: 2px;
+  cursor: none;
+  transition: all .2s;
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+}
+.photo-upload-btn:hover { border-color: var(--c-accent); color: var(--c-accent); }
+.photo-note {
+  font-size: .7rem; color: var(--c-faint);
+  text-align: center; line-height: 1.6;
+}
+
+/* ID card */
+.id-card {
+  position: absolute; bottom: 2.5rem; left: -1.8rem;
+  z-index: 10;
+  background: var(--c-dark);
+  color: var(--c-surface);
+  border-radius: 3px;
+  padding: 1rem 1.3rem;
+  display: flex; gap: .8rem; align-items: center;
+  box-shadow: 0 12px 32px rgba(26,25,21,.18);
+  max-width: 220px;
+}
+.id-icon { font-size: 1.2rem; flex-shrink: 0; }
+.id-t1 { font-size: .75rem; font-weight: 600; letter-spacing: .03em; }
+.id-t2 { font-size: .68rem; color: rgba(255,255,255,.45); margin-top: .1rem; }
+
+/* ── MARQUEE ──────────────────────────────────── */
+.marquee-wrap {
+  overflow: hidden;
+  background: var(--c-dark);
+  padding: 1rem 0;
+  border-top: 1px solid #2e2d29;
+  border-bottom: 1px solid #2e2d29;
+}
+.marquee-track {
+  display: flex; gap: 3rem;
+  white-space: nowrap;
+  animation: scroll 22s linear infinite;
+}
+@keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.marquee-item {
+  font-size: .7rem; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  display: flex; align-items: center; gap: 1.5rem;
+  flex-shrink: 0;
+}
+.marquee-item span { color: var(--c-accent); }
+
+/* ── SECTION SHELL ────────────────────────────── */
+.s { padding: 6rem 7vw; }
+.s-alt { background: var(--c-surface); }
+
+.s-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--c-rule);
+  align-items: end;
+}
+.s-label {
+  font-size: .68rem; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--c-accent);
+  margin-bottom: .75rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.s-label::before { content: ''; width: 20px; height: 1px; background: currentColor; }
+.s-title {
+  font-family: var(--ff-display);
+  font-size: clamp(2rem,3.5vw,3rem);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -.005em;
+}
+.s-desc {
+  font-size: .92rem; line-height: 1.8;
+  color: var(--c-mid); font-weight: 400;
+  align-self: end;
+}
+
+/* ── SKILLS ───────────────────────────────────── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.skill-cell {
+  padding: 2.5rem 2.2rem;
+  border-right: 1px solid var(--c-rule);
+  border-bottom: 1px solid var(--c-rule);
+  background: var(--c-surface);
+  transition: background .25s;
+  position: relative;
+  overflow: hidden;
+}
+.skill-cell:nth-child(3n) { border-right: none; }
+.skill-cell:nth-last-child(-n+3) { border-bottom: none; }
+.skill-cell:hover { background: var(--c-bg); }
+.skill-cell::after {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--c-accent);
+  transition: height .35s var(--ease);
+}
+.skill-cell:hover::after { height: 100%; }
+
+.sk-n {
+  font-family: var(--ff-display);
+  font-size: 3.5rem; font-weight: 300;
+  color: var(--c-rule);
+  line-height: 1;
+  margin-bottom: 1.2rem;
+  user-select: none;
+}
+.sk-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+.sk-title { font-size: .95rem; font-weight: 600; color: var(--c-dark); margin-bottom: .5rem; }
+.sk-desc { font-size: .82rem; color: var(--c-mid); line-height: 1.7; margin-bottom: 1.2rem; }
+.sk-pills { display: flex; flex-wrap: wrap; gap: .35rem; }
+.pill {
+  font-size: .68rem; font-weight: 500;
+  padding: .2rem .65rem;
+  border: 1px solid var(--c-rule);
+  border-radius: 1px;
+  color: var(--c-mid);
+  background: var(--c-bg);
+  letter-spacing: .05em;
+}
+
+/* ── LANGUAGES ────────────────────────────────── */
+.lang-list { display: flex; flex-direction: column; gap: 0; }
+.lang-row {
+  display: grid;
+  grid-template-columns: 56px 180px 1fr 72px;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--c-rule);
+  transition: background .15s;
+}
+.lang-row:first-child { border-top: 1px solid var(--c-rule); }
+.lang-idx {
+  font-family: var(--ff-display);
+  font-size: 1.1rem; font-style: italic;
+  color: var(--c-faint);
+}
+.lang-info { display: flex; flex-direction: column; gap: .15rem; }
+.lang-name { font-size: .95rem; font-weight: 600; color: var(--c-dark); }
+.lang-sub { font-size: .72rem; color: var(--c-mid); font-weight: 400; letter-spacing: .03em; }
+.lang-bar-wrap { display: flex; align-items: center; gap: 1.5rem; }
+.lang-bar {
+  flex: 1; height: 2px;
+  background: var(--c-rule);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.lang-fill {
+  height: 100%;
+  background: var(--c-dark);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s var(--ease);
+  border-radius: 1px;
+}
+.lang-fill.go { transform: scaleX(1); }
+.lang-pct { font-size: .75rem; font-weight: 600; color: var(--c-mid); text-align: right; white-space: nowrap; }
+.lang-logo {
+  width: 36px; height: 36px;
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .72rem; font-weight: 800;
+  font-family: var(--ff-display);
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+/* ── ABOUT ────────────────────────────────────── */
+.about-block {
+  background: var(--c-dark);
+  padding: 5rem 7vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.about-quote-text {
+  font-family: var(--ff-display);
+  font-size: clamp(1.6rem,2.8vw,2.3rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,.85);
+  line-height: 1.45;
+}
+.about-quote-text em { color: var(--c-accent); font-style: normal; }
+.about-attr {
+  margin-top: 1.5rem;
+  font-size: .72rem; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  display: flex; align-items: center; gap: .7rem;
+}
+.about-attr::before { content: ''; width: 24px; height: 1px; background: rgba(255,255,255,.2); }
+.about-facts { display: flex; flex-direction: column; gap: 1.5rem; }
+.fact {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.fact:last-child { border-bottom: none; padding-bottom: 0; }
+.fact-num {
+  font-family: var(--ff-display);
+  font-size: 1.8rem; font-weight: 300;
+  color: var(--c-accent);
+  line-height: 1; min-width: 3.5rem;
+}
+.fact-text { font-size: .88rem; color: rgba(255,255,255,.55); line-height: 1.7; }
+.fact-text b { color: rgba(255,255,255,.85); font-weight: 600; }
+
+/* ── SERVICES ─────────────────────────────────── */
+.srv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--c-rule);
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.srv-cell {
+  background: var(--c-surface);
+  padding: 2.5rem;
+  display: flex; flex-direction: column; gap: 1rem;
+  transition: background .2s;
+  position: relative;
+}
+.srv-cell:hover { background: var(--c-bg); }
+.srv-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.srv-num {
+  font-family: var(--ff-display);
+  font-size: .9rem; font-style: italic;
+  color: var(--c-faint);
+}
+.srv-arrow {
+  font-size: .9rem; color: var(--c-rule);
+  transition: color .2s, transform .25s var(--ease);
+}
+.srv-cell:hover .srv-arrow { color: var(--c-accent); transform: translate(3px,-3px); }
+.srv-title { font-size: 1rem; font-weight: 600; color: var(--c-dark); }
+.srv-desc { font-size: .83rem; color: var(--c-mid); line-height: 1.7; flex: 1; }
+.srv-tags { display: flex; flex-wrap: wrap; gap: .3rem; }
+.stag {
+  font-size: .65rem; font-weight: 500; letter-spacing: .07em;
+  padding: .15rem .55rem;
+  border: 1px solid var(--c-rule);
+  border-radius: 1px;
+  color: var(--c-mid);
+}
+
+/* ── CONTACT ──────────────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 5rem;
+}
+.c-form { display: flex; flex-direction: column; gap: 1.3rem; }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.fg { display: flex; flex-direction: column; gap: .45rem; }
+.fg label {
+  font-size: .68rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--c-mid);
+}
+.fg input, .fg textarea {
+  font-family: var(--ff-body); font-size: .92rem;
+  color: var(--c-dark);
+  background: var(--c-surface);
+  border: 1px solid var(--c-rule);
+  border-radius: 2px;
+  padding: .85rem 1rem;
+  outline: none;
+  transition: border-color .2s;
+  resize: vertical;
+}
+.fg input:focus, .fg textarea:focus { border-color: var(--c-accent); }
+.fg textarea { min-height: 120px; }
+
+.c-panel {
+  border: 1px solid var(--c-rule);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.c-panel-head {
+  padding: 2rem;
+  background: var(--c-dark);
+}
+.c-panel-head h3 {
+  font-family: var(--ff-display);
+  font-size: 1.5rem; font-weight: 300;
+  color: var(--c-surface); margin-bottom: .3rem;
+}
+.c-panel-head p { font-size: .8rem; color: rgba(255,255,255,.35); }
+.c-panel-body { padding: 1.8rem 2rem; display: flex; flex-direction: column; gap: 1.3rem; flex: 1; }
+.ci { display: flex; gap: 1rem; align-items: flex-start; }
+.ci-icon {
+  width: 34px; height: 34px; flex-shrink: 0;
+  background: var(--c-bg);
+  border: 1px solid var(--c-rule);
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem;
+}
+.ci-label {
+  font-size: .65rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--c-accent); margin-bottom: .15rem;
+}
+.ci-val { font-size: .85rem; color: var(--c-mid); line-height: 1.5; }
+.c-panel-foot {
+  padding: 1.2rem 2rem;
+  border-top: 1px solid var(--c-rule);
+  display: flex; align-items: center; gap: .6rem;
+}
+.avail-pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #22c55e;
+  animation: blink 2s ease infinite;
+}
+.avail-text { font-size: .72rem; color: var(--c-mid); letter-spacing: .05em; }
+
+/* ── FOOTER ───────────────────────────────────── */
+footer {
+  padding: 2rem 7vw;
+  border-top: 1px solid var(--c-rule);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+footer p { font-size: .75rem; color: var(--c-faint); }
+.f-links { display: flex; gap: 2rem; }
+.f-links a {
+  font-size: .72rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--c-faint);
+  transition: color .2s;
+}
+.f-links a:hover { color: var(--c-accent); }
+
+/* ── REVEAL ───────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.reveal.in { opacity: 1; transform: none; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+.hero-l { animation: fadeUp .8s var(--ease) .1s both; }
+.hero-r { animation: fadeUp .8s var(--ease) .3s both; }
+
+/* ── RESPONSIVE ───────────────────────────────── */
+@media (max-width: 980px) {
+  .n-links { display: none; }
+  nav { padding: 0 5vw; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-r { display: none; }
+  .hero-l { padding: 6rem 6vw 4rem; border: none; }
+  .hero-l::before { display: none; }
+  .s { padding: 4rem 6vw; }
+  .s-head { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .skill-cell:nth-child(3n) { border-right: 1px solid var(--c-rule); }
+  .skill-cell:nth-last-child(-n+3) { border-bottom: 1px solid var(--c-rule); }
+  .skill-cell:last-child { border-bottom: none; }
+  .lang-row { grid-template-columns: 40px 1fr 40px; }
+  .lang-bar-wrap { display: none; }
+  .about-block { grid-template-columns: 1fr; gap: 3rem; }
+  .srv-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .f-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="n-brand">MAC <b>NGADIA</b></div>
+  <ul class="n-links">
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#langages">Langages</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="n-cta">Me contacter</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- LEFT -->
+  <div class="hero-l">
+    <div class="h-tag"><span class="h-tag-dot"></span>Disponible · Brazzaville, Congo</div>
+
+    <h1 class="hero-name">
+      <br>
+      <em>NGADIA </em><br>
+      OPIMBA
+    </h1>
+    <p class="hero-role">Étudiant L2 Informatique — Administrateur Système & Développeur</p>
+
+    <p class="hero-intro">
+      En <strong>Licence 2 Informatique</strong>, je suis passionné par l'ensemble du domaine IT. Du code bas niveau C/C++ aux applications Android en Kotlin, en passant par le web fullstack et l'administration système — je veux tout comprendre, tout construire. <strong>La curiosité est mon moteur.</strong>
+    </p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Me contacter →</a>
+      <a href="#competences" class="btn-line">Voir mon profil ↓</a>
+    </div>
+
+    <div class="hero-kpis">
+      <div class="kpi">
+        <div class="kpi-n">7<span>+</span></div>
+        <div class="kpi-l">Langages</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n">360<span>°</span></div>
+        <div class="kpi-l">Couverture IT</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n">L<span>2</span></div>
+        <div class="kpi-l">Informatique</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT — PHOTO -->
+  <div class="hero-r">
+    <div class="photo-wrap">
+      <div class="photo-border"></div>
+      <div class="photo-border2"></div>
+      <div><img src="WhatsApp Image 2026-03-30 at 22.38.01.jpeg" ></div>
+        <div class="photo-corner tl"></div>
+        <div class="photo-corner tr"></div>
+        <div class="photo-corner bl"></div>
+        <div class="photo-corner br"></div>
+        <div class="photo-box-icon">◻</div>
+      </div>
+    </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">C <span>/</span> C++ <span>/</span> Java <span>/</span> JavaScript <span>/</span> Kotlin <span>/</span> WinDev <span>/</span> HTML <span>/</span> CSS <span>/</span></div>
+    <div class="marquee-item">Windows Server <span>/</span> Active Directory <span>/</span> Linux <span>/</span> Réseaux <span>/</span> IA <span>/</span> Pack Office <span>/</span></div>
+    <div class="marquee-item">C <span>/</span> C++ <span>/</span> Java <span>/</span> JavaScript <span>/</span> Kotlin <span>/</span> WinDev <span>/</span> HTML <span>/</span> CSS <span>/</span></div>
+    <div class="marquee-item">Windows Server <span>/</span> Active Directory <span>/</span> Linux <span>/</span> Réseaux <span>/</span> IA <span>/</span> Pack Office <span>/</span></div>
+  </div>
+</div>
+
+<!-- COMPÉTENCES -->
+<section class="s" id="competences">
+  <div class="s-head reveal">
+    <div>
+      <div class="s-label">Domaines d'expertise</div>
+      <h2 class="s-title">Ce que<br>je maîtrise</h2>
+    </div>
+    <p class="s-desc">Un profil construit sur la curiosité — système, développement, réseau, IA. Je touche à tout parce que tout m'intéresse.</p>
+  </div>
+  <div class="skills-grid reveal">
+
+    <div class="skill-cell">
+      <div class="sk-n">01</div>
+      <div class="sk-icon">🖥️</div>
+      <div class="sk-title">Systèmes d'exploitation</div>
+      <p class="sk-desc">Installation, partitionnement, configuration et maintenance de systèmes en environnement pro. Windows, Linux, gestion des droits et performances.</p>
+      <div class="sk-pills"><span class="pill">Windows 10/11</span><span class="pill">Ubuntu</span><span class="pill">Debian</span><span class="pill">Kali</span></div>
+    </div>
+
+    <div class="skill-cell">
+      <div class="sk-n">02</div>
+      <div class="sk-icon">🏢</div>
+      <div class="sk-title">Administration Serveur</div>
+      <p class="sk-desc">Déploiement Windows Server, gestion de domaine Active Directory, DNS, DHCP, GPO. Sécurisation et supervision d'infrastructure.</p>
+      <div class="sk-pills"><span class="pill">Windows Server</span><span class="pill">Active Directory</span><span class="pill">DNS/DHCP</span><span class="pill">GPO</span></div>
+    </div>
+
+    <div class="skill-cell">
+      <div class="sk-n">03</div>
+      <div class="sk-icon">🌐</div>
+      <div class="sk-title">Développement Web Fullstack</div>
+      <p class="sk-desc">Sites statiques et dynamiques, de la maquette à la mise en production. Frontend moderne, backend PHP, bases de données relationnelles.</p>
+      <div class="sk-pills"><span class="pill">HTML/CSS</span><span class="pill">JavaScript</span><span class="pill">PHP</span><span class="pill">MySQL</span></div>
+    </div>
+
+    <div class="skill-cell">
+      <div class="sk-n">04</div>
+      <div class="sk-icon">🤖</div>
+      <div class="sk-title">Intelligence Artificielle</div>
+      <p class="sk-desc">Utilisation avancée des LLMs, prompt engineering, intégration d'APIs IA dans des projets réels. Automatisation et workflows intelligents.</p>
+      <div class="sk-pills"><span class="pill">LLMs</span><span class="pill">API IA</span><span class="pill">Automatisation</span><span class="pill">Prompt Eng.</span></div>
+    </div>
+
+    <div class="skill-cell">
+      <div class="sk-n">05</div>
+      <div class="sk-icon">🔒</div>
+      <div class="sk-title">Réseau & Sécurité</div>
+      <p class="sk-desc">Configuration réseau, protocoles TCP/IP, VPN, pare-feu. Notions de cybersécurité, analyse de trafic, sécurisation des systèmes.</p>
+      <div class="sk-pills"><span class="pill">TCP/IP</span><span class="pill">VPN</span><span class="pill">Firewall</span><span class="pill">Wireshark</span></div>
+    </div>
+
+    <div class="skill-cell">
+      <div class="sk-n">06</div>
+      <div class="sk-icon">📊</div>
+      <div class="sk-title">Pack Office & Bureautique</div>
+      <p class="sk-desc">Maîtrise complète : Word, Excel avancé, PowerPoint percutant, Access. Automatisation par macros, mise en page professionnelle.</p>
+      <div class="sk-pills"><span class="pill">Word</span><span class="pill">Excel</span><span class="pill">PowerPoint</span><span class="pill">Access</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT DARK -->
+<div class="about-block reveal">
+  <div>
+    <p class="about-quote-text">
+      « Je suis étudiant en L2 Informatique, et pour moi <em>l'informatique n'a pas de frontières</em> — je veux tout explorer, du code machine au web, des serveurs à l'IA. »
+    </p>
+    <div class="about-attr">MAC NGADIA — Étudiant & Développeur</div>
+  </div>
+  <div class="about-facts">
+    <div class="fact">
+      <div class="fact-num">L2</div>
+      <div class="fact-text"><b>Licence 2 en Informatique.</b> Une formation solide sur les fondamentaux, complétée par une veille technologique constante en dehors des cours.</div>
+    </div>
+    <div class="fact">
+      <div class="fact-num">7+</div>
+      <div class="fact-text"><b>Langages de programmation maîtrisés.</b> Du bas niveau (C, C++) à l'objet (Java, Kotlin), du web (JS, HTML/CSS) au RAD (WinDev).</div>
+    </div>
+    <div class="fact">
+      <div class="fact-num">∞</div>
+      <div class="fact-text"><b>Curiosité sans limite.</b> Chaque domaine informatique m'intéresse. Je suis toujours en train d'apprendre quelque chose de nouveau.</div>
+    </div>
+  </div>
+</div>
+
+<!-- LANGAGES -->
+<section class="s s-alt" id="langages">
+  <div class="s-head reveal">
+    <div>
+      <div class="s-label">Langages de programmation</div>
+      <h2 class="s-title">Ma palette<br>de code</h2>
+    </div>
+    <p class="s-desc">Système, objet, web, mobile — des paradigmes variés pour aborder les problèmes sous tous les angles.</p>
+  </div>
+
+  <div class="lang-list reveal" id="langList">
+
+    <div class="lang-row">
+      <div class="lang-idx">01</div>
+      <div class="lang-logo" style="background:#DBEAFE;color:#1D4ED8">C</div>
+      <div class="lang-info">
+        <div class="lang-name">Langage C</div>
+        <div class="lang-sub">Bas niveau · Programmation système & embarqué</div>
+      </div>
+      <div class="lang-bar-wrap">
+        <div class="lang-bar"><div class="lang-fill" data-w=".82"></div></div>
+      </div>
+      <div class="lang-pct">Avancé</div>
+    </div>
+
+    <div class="lang-row">
+      <div class="lang-idx">02</div>
+      <div class="lang-logo" style="background:#FEF3C7;color:#B45309">C++</div>
+      <div class="lang-info">
+        <div class="lang-name">C++</div>
+        <div class="lang-sub">Orienté objet · Performance · Structures de données</div>
+      </div>
+      <div class="lang-bar-wrap">
+        <div class="lang-bar"><div class="lang-fill" data-w=".75"></div></div>
+      </div>
+      <div class="lang-pct">Intermédiaire</div>
+    </div>
+
+    <div class="lang-row">
+      <div class="lang-idx">03</div>
+      <div class="lang-logo" style="background:#FCE7F3;color:#BE185D">Jv</div>
+      <div class="lang-info">
+        <div class="lang-name">Java</div>
+        <div class="lang-sub">POO · Applications robustes · Backend</div>
+      </div>
+      <div class="lang-bar-wrap">
+        <div class="lang-bar"><div class="lang-fill" data-w=".78"></div></div>
+      </div>
+      <div class="lang-pct">Avancé</div>
+    </div>
+
+    <div class="lang-row">
+      <div class="lang-idx">04</div>
+      <div class="lang-logo" style="background:#FEFCE8;color:#A16207">JS</div>
+      <div class="lang-info">
+        <div class="lang-name">JavaScript</div>
+        <div class="lang-sub">Web · Interactivité · Fullstack</div>
+      </div>
+      <div class="lang-bar-wrap">
+        <div class="lang-bar"><div class="lang-fill" data-w=".88"></div></div>
+      </div>
+      <div class="lang-pct">Avancé</div>
+    </div>
+
+    <div class="lang-row">
+      <div class="lang-idx">05</div>
+      <div class="lang-logo" style="background:#FFF7ED;color:#C2410C">H</div>
+      <div class="lang-info">
+        <div class="lang-name">HTML / CSS</div>
+        <div class="lang-sub">Interfaces web · Structure & mise en forme</div>
+      </div>
+      <div class="lang-bar-wrap">
+        <div class="lang-bar"><div class="lang-fill" data-w=".92"></div></div>
+      </div>
+      <div class="lang-pct">Expert</div>
+    </div>
+
+    <div class="lang-row">
+      <div class="lang-idx">06</div>
+      <div class="lang-logo" style="background:#F0FDF4;color:#15803D">Kt</div>
+      <div class="lang-info">
+        <div class="lang-name">Kotlin</div>
+        <div class="lang-sub">Android · Applications mobiles natives</div>
+      </div>
+      <div class="lang-bar-wrap">
+        <div class="lang-bar"><div class="lang-fill" data-w=".65"></div></div>
+      </div>
+      <div class="lang-pct">Intermédiaire</div>
+    </div>
+
+    <div class="lang-row">
+      <div class="lang-idx">07</div>
+      <div class="lang-logo" style="background:#F5F3FF;color:#6D28D9">W</div>
+      <div class="lang-info">
+        <div class="lang-name">WinDev</div>
+        <div class="lang-sub">Applications métier · Développement RAD</div>
+      </div>
+      <div class="lang-bar-wrap">
+        <div class="lang-bar"><div class="lang-fill" data-w=".70"></div></div>
+      </div>
+      <div class="lang-pct">Intermédiaire</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="s" id="services">
+  <div class="s-head reveal">
+    <div>
+      <div class="s-label">Ce que je propose</div>
+      <h2 class="s-title">Services<br>& missions</h2>
+    </div>
+    <p class="s-desc">Disponible pour des missions freelance, des projets étudiants ou de l'assistance technique ponctuelle.</p>
+  </div>
+  <div class="srv-grid reveal">
+
+    <div class="srv-cell">
+      <div class="srv-top"><div class="srv-num">— 01</div><div class="srv-arrow">↗</div></div>
+      <div class="srv-title">Développement d'applications</div>
+      <p class="srv-desc">Applications de bureau, mobiles (Android/Kotlin) ou métier (WinDev/Java). Du cahier des charges au livrable final.</p>
+      <div class="srv-tags"><span class="stag">Java</span><span class="stag">C++</span><span class="stag">Kotlin</span><span class="stag">WinDev</span></div>
+    </div>
+
+    <div class="srv-cell">
+      <div class="srv-top"><div class="srv-num">— 02</div><div class="srv-arrow">↗</div></div>
+      <div class="srv-title">Sites web statiques & dynamiques</div>
+      <p class="srv-desc">Vitrine, portfolio, e-commerce ou application web avec espace admin. Frontend soigné, backend PHP/MySQL.</p>
+      <div class="srv-tags"><span class="stag">HTML/CSS</span><span class="stag">JavaScript</span><span class="stag">PHP</span><span class="stag">MySQL</span></div>
+    </div>
+
+    <div class="srv-cell">
+      <div class="srv-top"><div class="srv-num">— 03</div><div class="srv-arrow">↗</div></div>
+      <div class="srv-title">Installation & config. système</div>
+      <p class="srv-desc">Mise en place d'OS (Windows/Linux), serveurs Windows Server, domaine Active Directory, DNS, DHCP.</p>
+      <div class="srv-tags"><span class="stag">Windows Server</span><span class="stag">Linux</span><span class="stag">AD</span></div>
+    </div>
+
+    <div class="srv-cell">
+      <div class="srv-top"><div class="srv-num">— 04</div><div class="srv-arrow">↗</div></div>
+      <div class="srv-title">Support & dépannage informatique</div>
+      <p class="srv-desc">Diagnostic et résolution de pannes matérielles/logicielles. Maintenance préventive, nettoyage et optimisation.</p>
+      <div class="srv-tags"><span class="stag">Windows</span><span class="stag">Matériel</span><span class="stag">Réseau</span></div>
+    </div>
+
+    <div class="srv-cell">
+      <div class="srv-top"><div class="srv-num">— 05</div><div class="srv-arrow">↗</div></div>
+      <div class="srv-title">Intégration d'outils IA</div>
+      <p class="srv-desc">Automatisation, chatbots, intégration d'APIs IA dans vos outils existants. Gain de temps et de productivité.</p>
+      <div class="srv-tags"><span class="stag">API IA</span><span class="stag">Automatisation</span><span class="stag">Chatbots</span></div>
+    </div>
+
+    <div class="srv-cell">
+      <div class="srv-top"><div class="srv-num">— 06</div><div class="srv-arrow">↗</div></div>
+      <div class="srv-title">Formation & initiation</div>
+      <p class="srv-desc">Accompagnement Pack Office (Excel avancé, Word, PowerPoint), initiation à la programmation, cybersécurité.</p>
+      <div class="srv-tags"><span class="stag">Office</span><span class="stag">Initiation code</span><span class="stag">Cybersec.</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="s s-alt" id="contact">
+  <div class="s-head reveal">
+    <div>
+      <div class="s-label">Contact</div>
+      <h2 class="s-title">Travaillons<br>ensemble</h2>
+    </div>
+    <p class="s-desc">Un projet, une mission ou une question ? Écrivez-moi — je réponds sous 24h.</p>
+  </div>
+  <div class="contact-grid reveal">
+    <form class="c-form" action="https://formspree.io/f/xgopyqkq" method="POST">
+  <div class="f-row">
+    <div class="fg">
+      <label>Nom</label>
+      <input type="text" name="nom" placeholder="NGADIA" required>
+    </div>
+    <div class="fg">
+      <label>Prénom</label>
+      <input type="text" name="prenom" placeholder="MAC" required>
+    </div>
+  </div>
+
+  <div class="fg">
+    <label>Email</label>
+    <input type="email" name="email" placeholder="macngadia@gmail.com" required>
+  </div>
+
+  <div class="fg">
+    <label>Sujet</label>
+    <input type="text" name="sujet" placeholder="Développement d'une app Android..." required>
+  </div>
+
+  <div class="fg">
+    <label>Message</label>
+    <textarea name="message" placeholder="Décrivez votre projet..." required></textarea>
+  </div>
+
+  <button type="submit" class="btn-primary" style="align-self:flex-start;border:none">
+    Envoyer →
+  </button>
+</form>
+    <div class="c-panel">
+      <div class="c-panel-head">
+        <h3>Coordonnées</h3>
+        <p>Disponible pour toute prise de contact</p>
+      </div>
+      <div class="c-panel-body">
+        <div class="ci">
+          <div class="ci-icon">📍</div>
+          <div><div class="ci-label">Localisation</div><div class="ci-val">Brazzaville, Congo<br>Disponible à distance</div></div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">📧</div>
+          <div><div class="ci-label">Email</div><div class="ci-val">macngadia@gmail.com</div></div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">📱</div>
+          <div><div class="ci-label">WhatsApp</div><div class="ci-val">+242066918827</div></div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">🎓</div>
+          <div><div class="ci-label">Statut</div><div class="ci-val">Étudiant L2 Informatique<br>Ouvert aux missions & stages</div></div>
+        </div>
+      </div>
+      <div class="c-panel-foot">
+        <div class="avail-pulse"></div>
+        <span class="avail-text">Disponible · Répond en moins de 24h</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 MAC NGADIA — Étudiant L2 Informatique · Brazzaville, Congo</p>
+  <div class="f-links">
+    <a href="">GitHub</a>
+    <a href="#">LinkedIn</a>
+    <a href="https://wa.me/242066918827" target="_blank">WhatsApp</a>
+  </div>
+</footer>
+
+<script>
+/* ── cursor ── */
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+document.querySelectorAll('a,button,.skill-cell,.srv-cell,.lang-row,.photo-box,.photo-upload-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('big'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+});
+
+/* ── scroll reveal ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ── progress bars ── */
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.lang-fill').forEach((bar, i) => {
+        setTimeout(() => {
+          bar.style.transform = `scaleX(${bar.dataset.w})`;
+          bar.classList.add('go');
+        }, i * 100);
+      });
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+const ll = document.getElementById('langList');
+if (ll) barObs.observe(ll);
+
+/* ── photo upload ── */
+document.getElementById('photoInput').addEventListener('change', function() {
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const box = document.getElementById('photoBox');
+    box.style.cssText = `
+      background: url(${ev.target.result}) center top / cover no-repeat;
+      cursor: none;
+    `;
+    box.innerHTML = '';
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ── form ── */
+function sendForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.textContent = '✓ Envoyé !';
+  btn.style.background = '#22c55e';
+  setTimeout(() => {
+    btn.textContent = 'Envoyer →';
+    btn.style.background = '';
+  }, 3000);
+}
+</script>
+</body>
+</html>
