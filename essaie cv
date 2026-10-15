@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>CV - MAC NGADIA OPIMBA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2B5CE6; /* Ton bleu cobalt du portfolio */
+            --dark: #1A1915;
+            --grey: #5C5850;
+            --light: #F4F1EC;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: var(--dark); line-height: 1.5; }
+        .container { display: grid; grid-template-columns: 280px 1fr; min-height: 29.7cm; }
+        
+        /* Sidebar */
+        .sidebar { background: var(--dark); color: #fff; padding: 40px 30px; }
+        .profile-img { width: 150px; height: 150px; background: #333; border-radius: 5px; margin-bottom: 25px; border: 2px solid var(--primary); }
+        .side-section { margin-bottom: 30px; }
+        .side-title { color: var(--primary); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 15px; border-bottom: 1px solid #333; pb: 5px; }
+        .contact-item { font-size: 13px; margin-bottom: 10px; color: #ccc; }
+        .skill-tag { display: inline-block; background: #333; padding: 4px 10px; border-radius: 3px; font-size: 11px; margin: 0 5px 5px 0; }
+
+        /* Main Content */
+        .main { padding: 50px; }
+        header { border-bottom: 4px solid var(--primary); padding-bottom: 20px; margin-bottom: 40px; }
+        h1 { font-size: 38px; text-transform: uppercase; line-height: 1; margin-bottom: 5px; }
+        .subtitle { font-size: 18px; color: var(--primary); font-weight: 400; }
+        
+        section { margin-bottom: 35px; }
+        .section-title { font-size: 16px; text-transform: uppercase; font-weight: 700; border-left: 4px solid var(--primary); padding-left: 15px; margin-bottom: 20px; }
+        
+        .exp-item { margin-bottom: 20px; }
+        .exp-head { display: flex; justify-content: space-between; font-weight: 700; }
+        .exp-date { color: var(--primary); font-size: 14px; }
+        .exp-desc { font-size: 14px; color: var(--grey); margin-top: 5px; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .pill-dark { background: var(--light); padding: 10px; border-radius: 4px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="profile-img"></div> <div class="side-section">
+                <h3 class="side-title">Contact</h3>
+                <div class="contact-item">📍 Brazzaville, Congo</div>
+                <div class="contact-item">📞 +242 06 691 88 27</div>
+                <div class="contact-item">✉️ macngadia@gmail.com</div>
+            </div>
+
+            <div class="side-section">
+                <h3 class="side-title">Langages</h3>
+                <div class="skill-tag">C / C++</div>
+                <div class="skill-tag">Java</div>
+                <div class="skill-tag">JavaScript</div>
+                <div class="skill-tag">Kotlin</div>
+                <div class="skill-tag">WinDev</div>
+                <div class="skill-tag">HTML/CSS</div>
+            </div>
+
+            <div class="side-section">
+                <h3 class="side-title">Systèmes</h3>
+                <div class="skill-tag">Windows Server</div>
+                <div class="skill-tag">Active Directory</div>
+                <div class="skill-tag">Linux (Debian/Kali)</div>
+                <div class="skill-tag">DNS/DHCP</div>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header>
+                <h1>MAC <strong>NGADIA</strong></h1>
+                <div class="subtitle">Chef de Service & Développeur Fullstack</div>
+            </header>
+
+            <section>
+                <p class="exp-desc" style="font-style: italic; font-size: 15px;">
+                    "Étudiant en L2 Informatique, passionné par l'IT à 360°. Du code machine à l'IA, je construis des solutions robustes et évolutives."
+                </p>
+            </section>
+
+            <section>
+                <h2 class="section-title">Expériences & Projets</h2>
+                <div class="exp-item">
+                    <div class="exp-head"><span>Chef de Service (Administration Publique)</span> <span class="exp-date">2026 - Présent</span></div>
+                    <div class="exp-desc">Gestion du pôle développement projet et supervision des services informatiques.</div>
+                </div>
+                <div class="exp-item">
+                    <div class="exp-head"><span>Projet VirtualBox Lab</span> <span class="exp-date">2026</span></div>
+                    <div class="exp-desc">Architecture réseau complexe : Déploiement Windows Server, AD DS, DNS et DHCP sur subnet dédié.</div>
+                </div>
+                <div class="exp-item">
+                    <div class="exp-head"><span>Identité Visuelle - Service Dev</span> <span class="exp-date">2026</span></div>
+                    <div class="exp-desc">Création de la charte graphique et branding professionnel pour le département informatique.</div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Expertises Clés</h2>
+                <div class="grid-2">
+                    <div class="pill-dark"><strong>Dév. Applications:</strong> Java, WinDev et Kotlin pour solutions mobiles.</div>
+                    <div class="pill-dark"><strong>Web:</strong> Sites dynamiques avec backend PHP/MySQL.</div>
+                    <div class="pill-dark"><strong>IA:</strong> Prompt engineering et intégration d'APIs LLM.</div>
+                    <div class="pill-dark"><strong>Réseau:</strong> Configuration VPN, Firewall et analyse Wireshark.</div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Formation</h2>
+                <div class="exp-item">
+                    <div class="exp-head"><span>Licence 2 Informatique</span> <span class="exp-date">En cours</span></div>
+                    <div class="exp-desc">Spécialisation Algorithmique, Structures de données (Piles, Files) et Systèmes.</div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
